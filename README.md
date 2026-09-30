@@ -1,119 +1,137 @@
-# 🤟 IndiSign – Indian Sign Language Recognition
+# 🤟 IndiSign – Indian Sign Language Prediction
 
-An AI-powered computer vision project that recognizes **Indian Sign Language (ISL) hand gestures** using a deep learning model. The project uses **Convolutional Neural Networks (CNNs)** and image preprocessing techniques to classify different ISL signs.
+A deep learning-based computer vision project for recognizing **Indian Sign Language (ISL) hand gestures** from images.
+
+The project uses **TensorFlow/Keras and Convolutional Neural Networks (CNNs)** to learn visual patterns from sign language images and predict the corresponding sign class.
 
 ## 📌 Project Overview
 
-Communication can be challenging for people with hearing and speech disabilities, especially when others are not familiar with sign language.
+Indian Sign Language provides an important means of communication for the deaf and hard-of-hearing community.
 
-**IndiSign** aims to bridge this communication gap by using computer vision and deep learning to recognize Indian Sign Language gestures from images.
+This project explores how **Deep Learning and Computer Vision** can be used to automatically recognize Indian Sign Language gestures from images.
 
-The system takes a hand-gesture image as input and predicts the corresponding ISL class.
+The complete workflow includes:
 
----
-
-## 🚀 Features
-
-- 🤟 Indian Sign Language gesture classification
-- 🖼️ Image-based hand gesture recognition
-- 🧠 CNN-based deep learning model
-- 🔄 Image preprocessing and normalization
-- 📊 Dataset analysis and class distribution
-- 📈 Model training and validation
-- 🎯 Model evaluation using classification metrics
-- 🌐 Streamlit-based prediction interface
-- 💾 Trained model saved for inference
+* Dataset loading
+* Image preprocessing
+* Dataset exploration
+* Data visualization
+* CNN model development
+* Model training
+* Model validation
+* Performance analysis
+* Prediction of sign language classes
 
 ---
 
-## 🛠️ Technologies Used
+## 🎯 Objective
 
-| Technology | Purpose |
-|---|---|
-| Python | Programming language |
-| TensorFlow / Keras | Deep learning |
-| CNN | Image classification |
-| NumPy | Numerical computation |
-| Pandas | Data analysis |
-| Matplotlib | Visualization |
-| Scikit-learn | Model evaluation |
-| OpenCV | Image processing |
-| Streamlit | Web application |
-| Jupyter Notebook | Model development |
+The main objective of this project is to develop an image classification model capable of identifying different Indian Sign Language gestures.
+
+### Input
+
+An image containing an Indian Sign Language hand gesture.
+
+### Output
+
+The predicted Indian Sign Language class.
+
+```text
+Hand Gesture Image
+        ↓
+Image Preprocessing
+        ↓
+CNN Model
+        ↓
+Feature Extraction
+        ↓
+Classification
+        ↓
+Predicted ISL Sign
+```
 
 ---
 
-## 📂 Project Structure
+## 🧠 Machine Learning Approach
 
-IndiSign/
-│
-├── dataset/
-│   ├── train/
-│   ├── validation/
-│   └── test/
-│
-├── notebooks/
-│   └── indising.ipynb
-│
-├── models/
-│   └── indising_model.h5
-│
-├── app.py
-├── requirements.txt
-├── README.md
-└── .gitignore
-````
+The project uses a **Convolutional Neural Network (CNN)** for image classification.
 
-> Update the filenames above according to the actual files in your repository.
+CNNs are particularly suitable for image-based problems because they can automatically learn spatial features such as:
+
+* Edges
+* Shapes
+* Textures
+* Hand structures
+* Finger positions
+* Gesture patterns
+
+The network progressively learns higher-level features from the input images before performing classification.
+
+---
+
+## 🔄 Project Workflow
+
+```text
+Dataset
+   ↓
+Data Loading
+   ↓
+Image Resizing
+   ↓
+Image Preprocessing
+   ↓
+Dataset Visualization
+   ↓
+Train / Validation / Test Split
+   ↓
+Data Augmentation
+   ↓
+CNN Model
+   ↓
+Model Training
+   ↓
+Validation
+   ↓
+Performance Evaluation
+   ↓
+ISL Prediction
+```
 
 ---
 
 ## 📊 Dataset
 
-The dataset contains images representing different **Indian Sign Language hand gestures**.
+The project uses an image dataset containing different Indian Sign Language gesture classes.
 
-Each gesture is organized into its corresponding class directory.
+The dataset is stored in the `data/` directory.
 
-Example:
-
-```text
-dataset/
-│
-├── A/
-│   ├── image1.jpg
-│   ├── image2.jpg
-│   └── ...
-│
-├── B/
-│   ├── image1.jpg
-│   └── ...
-│
-├── C/
-│   └── ...
-│
-└── ...
-```
-
-The images are resized to:
+Images are processed using TensorFlow's image dataset utilities and resized to:
 
 ```text
 224 × 224 × 3
 ```
 
-before being provided to the neural network.
+where:
+
+* `224` = image height
+* `224` = image width
+* `3` = RGB color channels
+
+The dataset is then converted into batches for efficient model training.
 
 ---
 
-## 🔄 Data Preprocessing
+## 🔧 Data Preprocessing
 
-The following preprocessing steps are performed:
+The preprocessing pipeline includes:
 
-1. Load images from class directories
-2. Resize images to `224 × 224`
-3. Convert images into TensorFlow tensors
-4. Normalize pixel values
-5. Create training, validation, and testing datasets
-6. Apply data augmentation to improve generalization
+1. Loading images from the dataset
+2. Resizing images to `224 × 224`
+3. Converting images into TensorFlow tensors
+4. Normalizing pixel values
+5. Creating batches
+6. Preparing datasets for model training
+7. Applying suitable data augmentation techniques
 
 Example:
 
@@ -121,39 +139,40 @@ Example:
 dataset = tf.keras.utils.image_dataset_from_directory(
     data_dir,
     image_size=(224, 224),
-    batch_size=32,
-    shuffle=False
+    batch_size=32
 )
 ```
 
 ---
 
-## 🧠 Model Architecture
+## 🧠 CNN Architecture
 
-The project uses a **Convolutional Neural Network (CNN)** for image classification.
+The project implements a CNN-based image classification model.
 
-A typical architecture consists of:
+The general architecture follows:
 
 ```text
 Input Image
      ↓
-Convolution Layer
+Convolution
      ↓
 Batch Normalization
      ↓
-ReLU Activation
+Activation Function
      ↓
-Max Pooling
+Pooling
      ↓
-Convolution Layer
+Convolution
      ↓
 Batch Normalization
      ↓
-ReLU Activation
+Activation Function
      ↓
-Max Pooling
+Pooling
      ↓
-Flatten / Global Average Pooling
+Feature Extraction
+     ↓
+Flatten / Global Pooling
      ↓
 Dropout
      ↓
@@ -161,31 +180,44 @@ Dense Layer
      ↓
 Output Layer
      ↓
-Predicted ISL Sign
+ISL Class
 ```
 
-### Why CNN?
+The model learns useful visual representations automatically during training.
 
-CNNs are well suited for image recognition because they can automatically learn important visual features such as:
+---
 
-* Edges
-* Shapes
-* Textures
-* Hand contours
-* Finger positions
-* Gesture patterns
+## 🛡️ Data Augmentation
+
+Data augmentation can be used to improve model generalization by creating variations of training images.
+
+Possible transformations include:
+
+```python
+tf.keras.layers.RandomRotation()
+tf.keras.layers.RandomZoom()
+tf.keras.layers.RandomContrast()
+```
+
+Augmentation needs to be applied carefully for sign-language recognition because certain transformations, especially horizontal flipping, may alter the meaning of a gesture.
 
 ---
 
 ## 📈 Model Training
 
-The model is trained using:
+The model is trained using TensorFlow/Keras.
 
-* Optimizer: `Adam`
-* Loss function: `Sparse Categorical Crossentropy`
-* Evaluation metric: `Accuracy`
-* Batch size: `32`
-* Input size: `224 × 224`
+Typical training configuration includes:
+
+| Parameter  | Value                           |
+| ---------- | ------------------------------- |
+| Framework  | TensorFlow / Keras              |
+| Model      | CNN                             |
+| Input Size | 224 × 224 × 3                   |
+| Batch Size | 32                              |
+| Optimizer  | Adam                            |
+| Loss       | Sparse Categorical Crossentropy |
+| Metric     | Accuracy                        |
 
 Example:
 
@@ -199,65 +231,100 @@ model.compile(
 
 ---
 
-## 🛡️ Data Augmentation
+## 📉 Training Performance
 
-Data augmentation is used to create variations of training images and help reduce overfitting.
+The repository includes training performance visualizations for:
 
-Possible transformations include:
+### Accuracy
 
-```python
-data_augmentation = tf.keras.Sequential([
-    tf.keras.layers.RandomFlip("horizontal"),
-    tf.keras.layers.RandomRotation(0.1),
-    tf.keras.layers.RandomZoom(0.1)
-])
-```
+The training accuracy graph is used to observe how the model's classification performance changes across epochs.
 
-> Augmentation should be selected carefully because some transformations may change the meaning of a sign.
+### Loss
 
----
+The training loss graph helps analyze how the model's prediction error changes during training.
 
-## 📊 Model Evaluation
-
-The trained model can be evaluated using:
-
-* Accuracy
-* Precision
-* Recall
-* F1-score
-* Confusion Matrix
-
-Example:
+The repository contains:
 
 ```text
-Classification Report
+Accuracy Comparison Training.png
+Loss Comparion Training.png
+```
 
-              precision    recall    f1-score
-Class A          ...
-Class B          ...
-Class C          ...
-...
+These plots can be used to analyze training behavior and identify possible overfitting or underfitting.
+
+---
+
+## 🖼️ Prediction Output
+
+The repository also contains an example prediction/output image:
+
+```text
+output.png
+```
+
+This provides a visual representation of the model's prediction result.
+
+---
+
+## 📂 Project Structure
+
+```text
+indisignlang_prediction/
+│
+├── data/
+│   └── Dataset files
+│
+├── main.ipynb
+│   └── Complete model development and training workflow
+│
+├── Accuracy Comparison Training.png
+│   └── Training accuracy visualization
+│
+├── Loss Comparion Training.png
+│   └── Training loss visualization
+│
+├── output.png
+│   └── Prediction/output visualization
+│
+├── requirements.txt
+│   └── Python dependencies
+│
+└── README.md
 ```
 
 ---
 
-## 🌐 Streamlit Application
+## 🛠️ Technologies Used
 
-The trained model can be integrated into a Streamlit application.
+### Programming Language
 
-The application allows users to:
+* Python
 
-1. Upload an image
-2. Preprocess the image
-3. Pass it through the trained model
-4. Predict the corresponding ISL gesture
-5. Display the predicted class
+### Deep Learning
 
-Run the application:
+* TensorFlow
+* Keras
+* Convolutional Neural Networks
 
-```bash
-streamlit run app.py
-```
+### Data Processing
+
+* NumPy
+* Pandas
+
+### Computer Vision
+
+* OpenCV
+* Image preprocessing
+
+### Visualization
+
+* Matplotlib
+
+### Development
+
+* Jupyter Notebook
+* Git
+* GitHub
 
 ---
 
@@ -266,13 +333,13 @@ streamlit run app.py
 Clone the repository:
 
 ```bash
-git clone https://github.com/shiv-1024/IndiSign.git
+git clone https://github.com/shiv-1024/indisignlang_prediction.git
 ```
 
-Move into the project directory:
+Navigate to the project directory:
 
 ```bash
-cd IndiSign
+cd indisignlang_prediction
 ```
 
 Create a virtual environment:
@@ -281,13 +348,13 @@ Create a virtual environment:
 python -m venv .venv
 ```
 
-Activate it on Windows:
+Activate the environment on Windows:
 
 ```bash
 .venv\Scripts\activate
 ```
 
-Install dependencies:
+Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -295,54 +362,83 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Usage
+## ▶️ Running the Project
 
-### Train the model
-
-Open the notebook:
+Open the Jupyter Notebook:
 
 ```bash
 jupyter notebook
 ```
 
-Run the training pipeline.
+Then open:
 
-### Run the Streamlit application
-
-```bash
-streamlit run app.py
+```text
+main.ipynb
 ```
 
-Upload an ISL gesture image and the model will generate a prediction.
+Run the notebook cells sequentially to:
+
+1. Load the dataset
+2. Explore the images
+3. Preprocess the data
+4. Build the CNN model
+5. Train the model
+6. Evaluate the model
+7. Generate predictions
+8. Visualize the results
 
 ---
 
-## 📌 Future Improvements
+## 📊 Model Evaluation
 
-* 🎥 Real-time sign recognition using webcam
-* ✋ Hand detection using MediaPipe
-* 🔤 Recognition of more ISL signs
-* 🗣️ Convert recognized signs into text
-* 🔊 Text-to-speech integration
-* 📱 Mobile application
-* ⚡ Model optimization for real-time inference
-* 🧠 Experiment with transfer learning models such as VGG19, ResNet, and MobileNet
+The model can be evaluated using metrics such as:
+
+* Accuracy
+* Precision
+* Recall
+* F1-score
+* Confusion Matrix
+* Training/validation loss
+* Training/validation accuracy
+
+These metrics help understand how well the model performs across different sign classes.
 
 ---
 
-## 🎯 Learning Outcomes
+## 🔍 Key Learning Outcomes
 
-Through this project, I worked with:
+Through this project, I gained practical experience in:
 
 * Computer Vision
-* Convolutional Neural Networks
+* Deep Learning
+* CNN architecture
+* Image classification
+* TensorFlow/Keras
 * Image preprocessing
 * Data augmentation
 * Dataset analysis
-* Deep learning model training
+* Model training
 * Model evaluation
-* TensorFlow/Keras
-* Streamlit deployment
+* Visualization
+* Jupyter Notebook
+* Git and GitHub
+
+---
+
+## 🚀 Future Improvements
+
+The project can be extended with:
+
+* Real-time ISL recognition using a webcam
+* Hand detection using MediaPipe
+* Real-time video-based recognition
+* Transfer learning using VGG19, ResNet, or MobileNet
+* Improved model generalization
+* Hyperparameter tuning
+* Confusion matrix analysis
+* Deployment using Streamlit
+* Text-to-speech conversion
+* Mobile application integration
 
 ---
 
@@ -354,16 +450,14 @@ B.Tech – Artificial Intelligence and Data Science
 
 ### Connect with me
 
-* 💼 LinkedIn: [P Sivarajadurai](https://www.linkedin.com/in/sivarajadurai-p-33904b252/)
-* 🐙 GitHub: [shiv-1024](https://github.com/shiv-1024)
+* LinkedIn: [P Sivarajadurai](https://www.linkedin.com/in/sivarajadurai-p-33904b252/)
+* GitHub: [shiv-1024](https://github.com/shiv-1024)
 
 ---
 
-## ⭐ Support
+## ⭐ Project
 
-If you find this project useful, consider giving the repository a ⭐.
+If you find this project useful, feel free to ⭐ the repository.
 
-```
-
-**Important:** Before pushing it, replace the placeholder model/notebook filenames and the dataset description with the exact details from your repository.
-```
+**Repository:**
+https://github.com/shiv-1024/indisignlang_prediction
